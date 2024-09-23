@@ -1,0 +1,5 @@
+<form action="{{form_action}}" method="post">
+    {% csrf_token %}
+    {{form.as_div}}
+    <button type="submit">Enviar</button>
+</form>

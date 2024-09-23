@@ -5,6 +5,9 @@ app_name = 'forca'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('login/', views.login, name='login'),
-    path('register/', views.register, name='register'),
+
+    path('user/login/', views.login, name='login'),
+    path('user/register/', views.register, name='register'),
+    path('user/update/', views.modify, name='modify'),
+    path('user/logout/', views.logout, name='logout')
 ]

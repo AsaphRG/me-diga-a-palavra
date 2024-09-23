@@ -10,6 +10,13 @@
     <body>
         {% include "partials/header.html" %}
         <main>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {{message.tags}}">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
             {% block main %}{% endblock main %}
         </main>
         {% block footer %}{% endblock footer %}
