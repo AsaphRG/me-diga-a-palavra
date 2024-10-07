@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+ENCRYPTED_FIELDS_KEY = os.getenv('ENCRYPTED_FIELDS_KEY')
+if not ENCRYPTED_FIELDS_KEY:
+    raise ValueError("A chave de criptografia não está definida. Por favor, configure a variável de ambiente 'ENCRYPTED_FIELDS_KEY'.")
+
+FIELD_ENCRYPTION_KEY = ENCRYPTED_FIELDS_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +35,7 @@ SECRET_KEY = 'django-insecure-f-c&zhmo+8fvk)h##55(rxtu%#qyz84c!#v2p)_+#x)@n0xgl2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'encrypted_model_fields',
     'databases',
     'game',
 ]

@@ -1,0 +1,30 @@
+header {
+    padding: .5vw 1vw;
+    background-color: var(--marrom-mais-escuro);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth {
+    display: flex;
+    gap: 1vw;
+}
+
+.title {
+    font-family: 'bubble-butt';
+    font-size: 3em;
+    transform: rotate(-3deg);
+    color: var(--marrom-escuro);
+    z-index: 1;
+}
+
+.title a {
+    text-decoration: none;
+    color: var(--marrom-claro);
+}
+
+header a {
+    color: white;
+}

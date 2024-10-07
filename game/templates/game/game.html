@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Descubra a palavra!{% endblock title %}
+
+{% block main %}
+    <section class="game">
+        <div class="game-arts">
+            <img src="{{image}}" alt="" class='first-image'>
+            <img src="/static/game/images/2.png" alt="" class='second-image'>
+            <img src="/static/game/images/3.png" alt="" class='third-image'>
+            <img src="/static/game/images/4.png" alt="" class='fourth-image'>
+            <img src="/static/game/images/5.png" alt="" class='fiveth-image'>
+            <img src="{{forca}}" alt="" class='forca'>
+        </div>
+        <h1>Tema: {{theme}}</h1>
+        <div class="word">
+            {% for letter in discovered_word %}
+                <div class="letter">{{letter}}</div>
+            {% endfor %}
+        </div>
+        <form action="{% url "forca:game" id=game_id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="game_id" value="{{game_id}}">
+            <label for="guess">Tentativa:</label>
+            <input type="text" name="guess" id="guess" maxlenght="1" required autofocus oninput="validateInput(this)">
+        </form>
+    </section>
+{% endblock main %}

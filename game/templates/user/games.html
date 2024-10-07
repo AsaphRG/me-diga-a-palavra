@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block main %}
+    {% for game in games %}
+        <div class="game">
+            <a href="{% url "forca:game" game.id %}">
+                <p>{{game.id}}.</p>
+                <p>{{game.discovered_word}}</p>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock main %}

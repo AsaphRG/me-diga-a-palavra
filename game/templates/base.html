@@ -4,7 +4,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="{% static "game/images/Forca.png" %}" type="image/x-icon">
+        <link rel="stylesheet" href="{% static "game/styles/general.css" %}">
+        <link rel="stylesheet" href="{% static "game/styles/header.css" %}">
         <link rel="stylesheet" href="{% static "game/styles/main.css" %}">
+        <link rel="stylesheet" href="{% static "game/styles/footer.css" %}">
+        <link rel="stylesheet" href="{% static "game/styles/messages.css" %}">
         <title>{% block title %}{% endblock title %}</title>
     </head>
     <body>
@@ -19,7 +24,7 @@
             {% endif %}
             {% block main %}{% endblock main %}
         </main>
-        {% block footer %}{% endblock footer %}
+        {% include "partials/footer.html" %}
     </body>
     <script src="{% static "game/scripts/main.js" %}"></script>
 </html>

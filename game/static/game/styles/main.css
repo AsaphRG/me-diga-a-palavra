@@ -1,3 +1,47 @@
-* {
-    box-sizing: border-box;
+/* Home */
+main {
+    background-color: var(--marrom-claro);
+    padding: 1vw 0;
+}
+
+.home-menu {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.home-link {
+    font-family: 'bubble-butt';
+    color: var(--marrom-mais-escuro);
+    font-size: 2em;
+    padding: 1vw;
+}
+
+/* Game */
+.game {
+    margin: auto;
+    width: 70vw;
+}
+
+.game-arts {
+    display: flex;
+    margin: auto;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.game-arts img {
+    max-height: max-content;
+    width: 10vw;
+}
+
+.word {
+    margin: 2vw 0;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
 }

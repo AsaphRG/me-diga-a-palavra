@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form action="{% url "forca:new_game" %}" method="post" name='themes'>
+    {% csrf_token %}
+    {% for theme in themes %}
+        <div class='theme-form'>
+            <input type="checkbox" name="themesList[]" id="{{theme.theme_name}}" value="{{theme.id}}">
+            <label for="{{theme.theme_name}}">{{theme.theme_name}}</label>
+        </div>
+    {% endfor %}
+    <input type="submit" value="Temas escolhidos">
+</form>
+{% endblock main %}

@@ -1,3 +1,12 @@
 <header>
-    <h1>Me diga a... Palavra!</h1>
+    <div class="title"><a href="{% url "forca:home" %}">Me diga a... Palavra!</a></div>
+    <div class="auth">
+        {% if user.is_authenticated %}
+            <div><a href="{% url "forca:modify" %}">Profile</a></div>
+            <div><a href="{% url "forca:logout" %}">Sair</a></div>
+        {% else %}
+            <div><a href="{% url "forca:login" %}">Entrar</a></div>
+            <div><a href="{% url "forca:register" %}">Registrar</a></div>
+        {% endif %}
+    </div>
 </header>

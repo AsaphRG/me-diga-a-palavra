@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'bubble-butt';
+    src: url('bubble_butt/bubblebutt.ttf');
+}
+
+:root {
+    --marrom-mais-escuro: #462E19;
+    --marrom-entre-escuros: #C59367;
+    --marrom-escuro: #714015;
+    --marrom-aclareado: #F0C8A5;
+    --marrom-nem-é-marrom: #FFECDA;
+    --marrom-claro: #FFE1C6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    margin: auto;
+    font-size: 1em;
+    background-color: var(--marrom-mais-escuro);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input[type=submit], button[type=submit] {
+    width: max-content;
+    margin: auto;
+
+}
+
+form {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 60%;
+}
+
+form div {
+    margin: 1vw 0;
+    border: 1px solid black;
+    padding: 1vw 0.3vw;
+}
+
+form div div {
+    margin: 0.3vw 0;
+}
+
+.helptext {
+    margin: 0.5vw;
+    background-color: #A6CFEA;
+    border: 1px solid #0D7CC4;
+    border-radius: 15px;
+    padding: 0.5vw;
+    font-size: 0.7em;
+}

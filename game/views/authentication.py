@@ -24,6 +24,7 @@ def login(request: HttpRequest):
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
+            messages.info(request, f'Bem vindo, {user.first_name}!')
             return redirect('forca:home')
         messages.error(request, f'Login inválido.')
     
@@ -52,9 +53,11 @@ def register(request: HttpRequest):
 
 @login_required(login_url='forca:login')
 def modify(request: HttpRequest):
+    request.user.birth_date = request.user.birth_date.strftime('%Y-%m-%d')
+    form = forms.ModifyUserForm(instance=request.user)
     context={
         'form_action': reverse('forca:modify'),
-        'form': forms.ModifyUserForm(instance=request.user)
+        'form': form
     }
 
     if request.method == 'POST':

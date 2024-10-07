@@ -30,3 +30,23 @@ class CustomUserAdmin(UserAdmin):
 # @admin.register(models.Visit)
 # class Visit(admin.ModelAdmin):
 #     ...
+
+
+@admin.register(models.Theme)
+class ThemeAdmin(admin.ModelAdmin):
+    ...
+
+
+@admin.register(models.Word)
+class WordAdmin(admin.ModelAdmin):
+    ...
+
+
+@admin.register(models.Game)
+class GameAdmin(admin.ModelAdmin):
+    ...
+
+
+@admin.register(models.Move)
+class MoveAdmin(admin.ModelAdmin):
+    ...
