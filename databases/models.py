@@ -12,6 +12,9 @@ class Country(models.Model):
     class Meta:    
         verbose_name = 'País'
         verbose_name_plural = 'Países'
+    
+    def __str__(self) -> str:
+        return self.country_name
 
 
 class State(models.Model):
@@ -21,6 +24,9 @@ class State(models.Model):
     class Meta:
         verbose_name = 'Estado'
         verbose_name_plural = 'Estados'
+    
+    def __str__(self) -> str:
+        return self.state_name
 
 
 class CustomUser(AbstractUser):
@@ -38,12 +44,6 @@ class CustomUser(AbstractUser):
     country = models.ForeignKey(Country, blank=True, null=True, on_delete=models.DO_NOTHING, verbose_name='País')
     state = models.ForeignKey(State, blank=True, null=True, on_delete=models.DO_NOTHING, verbose_name='Estado')
     birth_date = models.DateField(blank=True, null=True, verbose_name='Data de nascimento')
-
-
-# class Visit(models.Model):
-#     page = models.CharField(blank=False, null=False)
-#     # user = 
-#     dt_access = models.DateTimeField(default=timezone.now())
 
 
 class Theme(models.Model):
@@ -74,6 +74,7 @@ class Game(models.Model):
     theme = models.ForeignKey(Theme, on_delete=models.DO_NOTHING, verbose_name='Tema')
     discovered_word = models.CharField(max_length=255, verbose_name='Palavra descoberta')
     finished = models.BooleanField(verbose_name='Finalizado', default=False)
+    win = models.BooleanField(verbose_name='Vitória', default=False)
     owner = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, verbose_name='Jogador')
     started_at = models.DateTimeField(default=timezone.now, verbose_name='Início')
     finished_at = models.DateTimeField(null=True, blank=True, verbose_name='Fim')
@@ -83,7 +84,7 @@ class Game(models.Model):
         verbose_name_plural = 'Jogos'
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f'{self.discovered_word}'
 
 
 class Move(models.Model):
@@ -95,3 +96,6 @@ class Move(models.Model):
     class Meta:
         verbose_name = 'Jogada'
         verbose_name_plural = 'Jogadas'
+
+    def __str__(self) -> str:
+        return self.letter

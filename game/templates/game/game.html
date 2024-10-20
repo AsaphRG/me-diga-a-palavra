@@ -5,14 +5,17 @@
 {% block main %}
     <section class="game">
         <div class="game-arts">
-            <img src="{{image}}" alt="" class='first-image'>
-            <img src="/static/game/images/2.png" alt="" class='second-image'>
-            <img src="/static/game/images/3.png" alt="" class='third-image'>
-            <img src="/static/game/images/4.png" alt="" class='fourth-image'>
-            <img src="/static/game/images/5.png" alt="" class='fiveth-image'>
-            <img src="{{forca}}" alt="" class='forca'>
+            <img src="/static/game/images/{{wrong_answers|length|add:"1"}}.png" class="{{class}} game-img">
+            <img src="{{forca}}" class='forca'>
         </div>
         <h1>Tema: {{theme}}</h1>
+        <div class="wrong-answers">
+            <p>Letras erradas: 
+            {% for letter in wrong_answers %}
+            <span class="letter">{{letter}}</span>
+            {% endfor %}
+            </p>
+        </div>
         <div class="word">
             {% for letter in discovered_word %}
                 <div class="letter">{{letter}}</div>

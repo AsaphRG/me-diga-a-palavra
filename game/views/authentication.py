@@ -32,10 +32,7 @@ def login(request: HttpRequest):
 
 
 def register(request: HttpRequest):
-    context = {
-        'form_action': reverse('forca:register'),
-        'form': forms.CustomUserCreationForm(),
-    }
+    form = forms.CustomUserCreationForm()
 
     if request.method == "POST":
         form = forms.CustomUserCreationForm(request.POST)
@@ -48,6 +45,10 @@ def register(request: HttpRequest):
                 messages.info(request, f'Bem vindo, {user.first_name}!')
                 return redirect('forca:home')
 
+    context = {
+        'form_action': reverse('forca:register'),
+        'form': form,
+    }
     return render(request, 'authentication/register.html', context=context)
 
 
@@ -55,10 +56,6 @@ def register(request: HttpRequest):
 def modify(request: HttpRequest):
     request.user.birth_date = request.user.birth_date.strftime('%Y-%m-%d')
     form = forms.ModifyUserForm(instance=request.user)
-    context={
-        'form_action': reverse('forca:modify'),
-        'form': form
-    }
 
     if request.method == 'POST':
         form = forms.ModifyUserForm(data=request.POST, instance=request.user)
@@ -67,6 +64,10 @@ def modify(request: HttpRequest):
             form.save()
             context['form'] = form
 
+    context={
+        'form_action': reverse('forca:modify'),
+        'form': form
+    }
     return render(request, 'authentication/modify.html', context=context)
 
 

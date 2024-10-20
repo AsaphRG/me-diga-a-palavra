@@ -10,11 +10,13 @@
         <link rel="stylesheet" href="{% static "game/styles/main.css" %}">
         <link rel="stylesheet" href="{% static "game/styles/footer.css" %}">
         <link rel="stylesheet" href="{% static "game/styles/messages.css" %}">
-        <title>{% block title %}{% endblock title %}</title>
+        <title>{% block title %}Me Diga a... Palavra!{% endblock title %}</title>
     </head>
     <body>
         {% include "partials/header.html" %}
         <main>
+            <aside></aside>
+            <section class='main-section'>
             {% if messages %}
                 {% for message in messages %}
                     <div class="message {{message.tags}}">
@@ -23,8 +25,11 @@
                 {% endfor %}
             {% endif %}
             {% block main %}{% endblock main %}
+            </section>
+            <aside></aside>
         </main>
         {% include "partials/footer.html" %}
     </body>
-    <script src="{% static "game/scripts/main.js" %}"></script>
+    <script src="{% static "game/scripts/main.js" %}"></script>,
+    <script src="https://kit.fontawesome.com/da322d4795.js" crossorigin="anonymous"></script>
 </html>

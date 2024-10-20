@@ -19,6 +19,12 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ('first_name', 'last_name', 'sex', 'country', 'state', 'birth_date', 'email') + UserCreationForm.Meta.fields
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.pop('autofocus', None)
+        self.fields['password1'].widget.attrs.pop('autofocus', None)
+        self.fields['password2'].widget.attrs.pop('autofocus', None)
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if CustomUser.objects.filter(email=email).exists():
@@ -36,9 +42,20 @@ class ModifyUserForm(forms.ModelForm):
     state = forms.ModelChoiceField(queryset=State.objects.all(), required=False, label='Estado')
     birth_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date', 'format': '%Y-%m-%d'}), input_formats=['%Y-%m-%d'], label='Data de nascimento')
 
+    password1 = forms.CharField(
+        label='Password',
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+    )
+    password2 = forms.CharField(
+        label='Password confirmation',
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        strip=False,
+    )
+
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('first_name', 'last_name', 'sex', 'country', 'state', 'birth_date', 'email') + UserCreationForm.Meta.fields
+        fields = ('first_name', 'last_name', 'sex', 'country', 'state', 'birth_date', 'email', 'password1', 'password2')
 
     def save(self, commit=True):
         cleaned_data = self.cleaned_data

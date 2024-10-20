@@ -49,4 +49,4 @@ class GameAdmin(admin.ModelAdmin):
 
 @admin.register(models.Move)
 class MoveAdmin(admin.ModelAdmin):
-    ...
+    list_display = ['letter', 'game', 'time']

@@ -1,11 +1,43 @@
 {% extends "base.html" %}
 
 {% block main %}
+    <div class="game-statistics">
+        <div class="first-row">
+            <div class="wins">
+                <h1>{{wins}}</h1>
+                <p>Vitórias</p>
+            </div>
+            <div class="played">
+                <h1>{{played}}</h1>
+                <p>Jogos jogados</p>
+            </div>
+            <div class="losses">
+                <h1>{{losses}}</h1>
+                <p>Derrotas</p>
+            </div>
+        </div>
+        <div class="second-row">
+            <div class="moves">
+                <h1>{{moves_made}}</h1>
+                <p>Jogadas</p>
+            </div>
+            <div class="avg-playtime">
+                <h1>{{avg_playtime}}</h1>
+                <p>Tempo médio por jogo</p>
+            </div>
+            <div class="words">
+                <h1>{{seen_words}}</h1>
+                <p>Palavras vistas</p>
+            </div>
+        </div>
+    </div>
     {% for game in games %}
-        <div class="game">
-            <a href="{% url "forca:game" game.id %}">
+        <div class="games">
+            <a href="{% url "forca:game" game.id %}" class='game-items'>
+                {% if game.finished %}<i class="fa-solid fa-door-closed"></i>{% else %}<i class="fa-solid fa-door-open"></i>{% endif %}
                 <p>{{game.id}}.</p>
-                <p>{{game.discovered_word}}</p>
+                {% if game.finished %}<p>{{game.secret_word}}</p>{% else %}<p>{{game.discovered_word}}</p>{% endif %}
+                {% if game.win and game.finished %}<i class="fa-solid fa-trophy"></i>{% elif not game.win and game.finished %}<i class="fa-solid fa-heart-crack"></i>{% endif %}
             </a>
         </div>
     {% endfor %}

@@ -5,9 +5,12 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: var(--marrom-claro);
 }
 
 .auth {
+    margin: 1.3vw 0 0 0;
+    font-size: 1.2em;
     display: flex;
     gap: 1vw;
 }
@@ -16,15 +19,9 @@ header {
     font-family: 'bubble-butt';
     font-size: 3em;
     transform: rotate(-3deg);
-    color: var(--marrom-escuro);
     z-index: 1;
 }
 
 .title a {
     text-decoration: none;
-    color: var(--marrom-claro);
-}
-
-header a {
-    color: white;
 }
