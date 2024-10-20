@@ -5,7 +5,7 @@
 {% block main %}
     <section class="game">
         <div class="game-arts">
-            <img src="/static/game/images/{{wrong_answers|length|add:"1"}}.png" class="{{class}} game-img">
+            <img src="/static/game/images/{{random_number}}.png" class="{{class}} game-img">
             <img src="{{forca}}" class='forca'>
         </div>
         <h1>Tema: {{theme}}</h1>
@@ -24,6 +24,7 @@
         <form action="{% url "forca:game" id=game_id %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="game_id" value="{{game_id}}">
+            <input type="hidden" name="random_number" value="{{random_number}}">
             <label for="guess">Tentativa:</label>
             <input type="text" name="guess" id="guess" maxlenght="1" required autofocus oninput="validateInput(this)">
         </form>

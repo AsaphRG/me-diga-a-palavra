@@ -14,6 +14,12 @@ import random
 def game(request: HttpRequest, id):
     css_class = ['first-image', 'second-image', 'third-image', 'fourth-image', 'fiveth-image']
     game = get_object_or_404(Game, owner=request.user, id=id)
+
+    if request.POST.get('random_number'):
+        random_number = request.POST.get('random_number')
+    else:
+        random_number = random.randint(1, 5)
+    
     if game.finished:
         info(request, f'Partida finalizada em {game.finished_at.strftime("%d/%m/%Y")}')
         return redirect('forca:games')
@@ -38,16 +44,19 @@ def game(request: HttpRequest, id):
                     return redirect('forca:win')
                 game.save()
             else:
-                Move.objects.create(letter=guess, game=game)
-                wrong_answers.append(guess)
+                if guess not in wrong_answers:
+                    Move.objects.create(letter=guess, game=game)
+                    wrong_answers.append(guess)
+                    random_number = random.randint(1, 5)
                 if len(wrong_answers) > 4:
                     game.finished = True
                     game.finished_at = timezone.now()
                     game.save()
                     return redirect('forca:game_over')
+    
 
     context = {
-        'image': '/static/game/images/1.png',
+        'random_number': random_number,
         'forca': '/static/game/images/forca.png',
         'game_id': game.id,
         'theme': game.theme,
@@ -68,6 +77,7 @@ def createGame(request: HttpRequest):
         game = Game.objects.create(secret_word=secret_word.word, theme=secret_word.theme, discovered_word=discovered_word, owner=request.user)
         game.discovered_word = reveal_letters(' ', game.secret_word, game.discovered_word)
         game.discovered_word = reveal_letters("'", game.secret_word, game.discovered_word)
+        game.discovered_word = reveal_letters("-", game.secret_word, game.discovered_word)
         game.save()
         return redirect('forca:game', id=game.id)
     else:
