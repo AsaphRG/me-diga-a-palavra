@@ -2,6 +2,7 @@ from django import forms
 
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
@@ -24,6 +25,12 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['username'].widget.attrs.pop('autofocus', None)
         self.fields['password1'].widget.attrs.pop('autofocus', None)
         self.fields['password2'].widget.attrs.pop('autofocus', None)
+
+    def clean_birth_date(self):
+        birth_date = self.cleaned_data.get('birth_date')
+        if birth_date > timezone.now().date():
+            self.add_error('birth_date', forms.ValidationError('Data de nascimento não pode ser posterior ao dia atual.', code='Claudenir'))
+        return birth_date
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
