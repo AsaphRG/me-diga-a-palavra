@@ -2,6 +2,19 @@ main {
     color: var(--marrom-mais-escuro);
 }
 
+.form-field {
+    margin: 1vw 0;
+    padding: 0;
+    border: none;
+}
+
+.form-error {
+    color: red;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* Home */
 .home-menu {
     min-height: 70vh;

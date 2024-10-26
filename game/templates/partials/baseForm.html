@@ -2,13 +2,15 @@
     {% csrf_token %}
     {{form.non_field_errors}}
     {% for field in form %}
+    <div class="form-field">
         {{field.label_tag}}
         {{field}}
         {% if field.errors %}
             {% for error in field.errors %}
-                {{error}}
+                <div class="form-error">{{error}}</div>
             {% endfor %}
         {% endif %}
+    </div>
     {% endfor %}
     <button type="submit">Enviar</button>
 </form>
