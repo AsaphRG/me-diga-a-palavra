@@ -1,4 +1,4 @@
-main * {
+main {
     color: var(--marrom-mais-escuro);
 }
 
@@ -21,6 +21,12 @@ main * {
 /* Game */
 .game {
     margin: auto;
+}
+
+.theme {
+    text-align: center;
+    font-family: 'bubble-butt';
+    font-size: 2em;
 }
 
 .game-arts {
@@ -97,7 +103,7 @@ main * {
 }
 
 .fa-door-closed, .fa-door-open {
-    color: dodgerblue;
+    color: var(--marrom-mais-escuro);
 }
 
 .fa-heart-crack {
@@ -129,4 +135,39 @@ main * {
 .end-game-nav {
     display: flex;
     gap: 1vw;
+}
+
+/* Game details */
+.main-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data {
+    font-family: 'bubble-butt';
+}
+
+.data * {
+    text-align: center;
+}
+
+.game-time {
+    display: flex;
+    justify-content: center;
+    gap: 5vw;
+    align-items: end;
+}
+
+.playtime {
+    font-size: 1.5em;
+}
+
+.game-moves {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.secret-word {
+    font-size: 3em;
 }

@@ -14,15 +14,14 @@ import random
 def game(request: HttpRequest, id):
     css_class = ['first-image', 'second-image', 'third-image', 'fourth-image', 'fiveth-image']
     game = get_object_or_404(Game, owner=request.user, id=id)
+    
+    if game.finished:
+        return redirect('forca:game_finished', game.id)
 
     if request.POST.get('random_number'):
         random_number = request.POST.get('random_number')
     else:
         random_number = random.randint(1, 5)
-    
-    if game.finished:
-        info(request, f'Partida finalizada em {game.finished_at.strftime("%d/%m/%Y")}')
-        return redirect('forca:games')
     
     moves = Move.objects.filter(game=game.id)
     moves_list = [move.letter for move in moves]

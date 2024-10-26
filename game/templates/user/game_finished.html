@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+    <div class="main-header">
+        {% if game.win %}
+            <h1 class='end-game-title win-title'>Você ganhou!</h1>
+            <img src="" alt="" class='game-over-img end-game-img'>
+        {% else %}
+            <h1 class="end-game-title lose-title">Você perdeu!</h1>
+            <img src="{% static "game/images/Game Over.png" %}" alt="" class='game-over-img end-game-img'>
+        {% endif %}
+    </div>
+    <div class="data">
+        <div class="game-word">
+            <div class="secret-word">
+                <p>{{game.secret_word}}</p>
+            </div>
+            <div class="discovered-word">
+                {% if not game.win %}
+                    <p>{{game.discovered_word}}</p>
+                    <p>Descoberto</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="game-time">
+            <div class="start">
+                <p>Início: {{start}}</p>
+            </div>
+            <div class="playtime">
+                <p>Tempo de jogo: {{playtime}}</p>
+            </div>
+            <div class="end">
+                <p>Fim: {{end}}</p>
+            </div>
+        </div>
+        <div class="game-moves">
+            <div class="moves">
+                <p>{{letters|length}}</p>
+                <p>Número de jogadas</p>
+            </div>
+            <div class="wrong_answers">
+                <p>{{wrong_answers|length}}</p>
+                <p>Jogadas erradas</p>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

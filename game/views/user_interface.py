@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from databases.forms import ThemeChoiceForm
@@ -6,6 +6,7 @@ from databases.models import Word, Theme, Game, Move
 from django.contrib.messages import error, info, warning, success
 from datetime import timedelta
 from django.utils import timezone
+from statistics import median
 
 def format_timedelta(td):
     total_seconds = int(td.total_seconds())
@@ -14,17 +15,31 @@ def format_timedelta(td):
     except ZeroDivisionError:
         hours = 0
     
-    try:
-        minutes = (total_seconds % 3600) // 60
-    except ZeroDivisionError:
-        minutes = 0
+    if hours == 0:
+        try:
+            minutes = total_seconds // 60
+        except ZeroDivisionError:
+            minutes = 0
+        
+        try:
+            seconds = total_seconds % 60
+        except ZeroDivisionError:
+            seconds = 0
+        
+        return f"{minutes}:{seconds}"
     
-    try:
-        seconds = total_seconds % 60
-    except ZeroDivisionError:
-        seconds = 0
-    
-    return f"{hours}:{minutes}:{seconds}"
+    else:
+        try:
+            minutes = (total_seconds % 3600) // 60
+        except ZeroDivisionError:
+            minutes = 0
+        
+        try:
+            seconds = total_seconds % 60
+        except ZeroDivisionError:
+            seconds = 0
+        
+        return f"{hours}:{minutes}:{seconds}"
 
 def games(request:HttpRequest):
     games = Game.objects.filter(owner=request.user)
@@ -52,6 +67,7 @@ def games(request:HttpRequest):
             differences.append(timezone.now() - start)
     
     total_difference = sum(differences, timedelta())
+    median_playtime = median(differences)
 
     time = total_difference / len(differences)
     games_played = games.count()
@@ -64,6 +80,32 @@ def games(request:HttpRequest):
         'played': games_played,
         'moves_made': moves_made,
         'seen_words': seen_words,
-        'avg_playtime': format_timedelta(time),
+        'avg_playtime': format_timedelta(median_playtime),
     }
     return render(request, 'user/games.html', context=context)
+
+
+@login_required(login_url='forca:login')
+def game_finished(request: HttpRequest, id):
+    game = get_object_or_404(Game, owner=request.user, id=id)
+
+    start = game.started_at
+    end = game.finished_at if game.finished else timezone.now()
+    
+    time = end - start
+
+    letters = Move.objects.filter(game=game)
+    moves = set()
+    moves = {letter.letter for letter in letters}
+    wrong_answers = set()
+    wrong_answers = {letter.letter for letter in letters if not letter.right}
+    context = {
+        'game': game,
+        'letters': moves,
+        'wrong_answers': wrong_answers,
+        'start': start.strftime("%d/%m/%Y às %H:%M:%S"),
+        'end': end.strftime("%d/%m/%Y às %H:%M:%S"),
+        'playtime': format_timedelta(time),
+
+    }
+    return render(request, 'user/game_finished.html', context=context)
