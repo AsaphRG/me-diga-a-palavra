@@ -47,7 +47,7 @@ def games(request:HttpRequest):
     games = Game.objects.filter(owner=request.user)
     if not games:
         messages.info(request, 'Nenhum jogo encontrado, inicie um novo jogo.')
-        return redirect('forca:new_game')
+        return redirect('forca:theme')
 
     words = set()
     wins = 0
