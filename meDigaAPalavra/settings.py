@@ -143,6 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'databases.CustomUser'
 
 try:
-    from meDigaAPalavra import local_settings
+    from meDigaAPalavra.local_settings import *
 except:
     ...
