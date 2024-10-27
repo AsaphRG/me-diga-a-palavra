@@ -150,6 +150,10 @@ main {
     gap: 1vw;
 }
 
+.secret-word {
+    font-family: 'bubble-butt';
+}
+
 /* Game details */
 .main-header {
     display: flex;

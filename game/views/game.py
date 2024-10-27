@@ -51,7 +51,7 @@ def game(request: HttpRequest, id):
                     game.finished = True
                     game.finished_at = timezone.now()
                     game.save()
-                    return redirect('forca:game_over')
+                    return redirect('forca:game_over', game_id=game.id)
     
 
     context = {
@@ -95,8 +95,12 @@ def theme(request: HttpRequest):
 
 
 @login_required(login_url='forca:login')
-def game_over(request: HttpRequest):
-    return render(request, 'game/game_over.html')
+def game_over(request: HttpRequest, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    context = {
+        'game': game,
+    }
+    return render(request, 'game/game_over.html', context=context)
 
 
 @login_required(login_url='forca:login')

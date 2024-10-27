@@ -3,6 +3,7 @@
 {% block main %}
     <div class="end-game-screen">
         <h1 class='end-game-title win-title'>Você ganhou!</h1>
+        <img src="{% static "game/images/vitoria.png" %}" alt="" class='game-over-img end-game-img'>
         {% include "partials/end_game.html" %}
     </div>
 {% endblock main %}

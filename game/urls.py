@@ -16,7 +16,7 @@ urlpatterns = [
     path('theme/', views.theme, name='theme'),
     path('new_game/', views.createGame, name='new_game'),
     path('game/<int:id>/', views.game, name='game'),
-    path('game_over/', views.game_over, name='game_over'),
+    path('game_over/<int:game_id>/', views.game_over, name='game_over'),
     path('win/', views.win, name='win'),
 
     # path('load_all', views.load_all, name='load_all'),

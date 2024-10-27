@@ -41,6 +41,7 @@ def format_timedelta(td):
         
         return f"{hours}:{minutes}:{seconds}"
 
+@login_required(login_url='forca:login')
 def games(request:HttpRequest):
     games = Game.objects.filter(owner=request.user)
 

@@ -5,6 +5,7 @@
     <div class="end-game-screen">
         <h1 class="end-game-title lose-title">Você perdeu!</h1>
         <img src="{% static "game/images/Game Over.png" %}" alt="" class='game-over-img end-game-img'>
+        <div class="secret-word">{{game.secret_word}}</div>
         {% include "partials/end_game.html" %}
     </div>
 {% endblock main %}

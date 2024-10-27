@@ -5,7 +5,7 @@
     <div class="main-header">
         {% if game.win %}
             <h1 class='end-game-title win-title'>Você ganhou!</h1>
-            <img src="" alt="" class='game-over-img end-game-img'>
+            <img src="{% static "game/images/vitoria.png" %}" alt="" class='game-over-img end-game-img'>
         {% else %}
             <h1 class="end-game-title lose-title">Você perdeu!</h1>
             <img src="{% static "game/images/Game Over.png" %}" alt="" class='game-over-img end-game-img'>
