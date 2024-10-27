@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Descubra a palavra!{% endblock title %}
 
@@ -7,7 +8,7 @@
         <h1 class="theme">{{theme}}</h1>
         <div class="game-arts">
             <img src="/static/game/images/{{random_number}}.png" class="{{class}} game-img">
-            <img src="{{forca}}" class='forca'>
+            <img src="{% static "/static/game/images/forca.png" %}" class='forca'>
         </div>
         <div class="wrong-answers">
             <p>Letras erradas: 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from databases.forms import ThemeChoiceForm
@@ -44,6 +45,9 @@ def format_timedelta(td):
 @login_required(login_url='forca:login')
 def games(request:HttpRequest):
     games = Game.objects.filter(owner=request.user)
+    if not games:
+        messages.info(request, 'Nenhum jogo encontrado, inicie um novo jogo.')
+        return redirect('forca:new_game')
 
     words = set()
     wins = 0
